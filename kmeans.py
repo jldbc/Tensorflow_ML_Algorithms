@@ -49,4 +49,5 @@ with tf.Session() as sess:
 	sess.run(init)
 	for i in range(num_iter):
 		centroids = sess.run(update_centroids, feed_dict={X:X_mat})
-		print centroids
+		#print centroids
+	print "final centroids: \n" + str(centroids)
