@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 num_epochs = 1000
 batch_size = 300
-num_hidden_nodes = 256
+num_hidden_nodes = 128
 
 #input data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
@@ -22,10 +22,10 @@ w_out = tf.Variable(tf.random_normal([num_hidden_nodes,784], stddev=0.01))
 def model(X,w_h,w_out):
 	h = tf.nn.relu(tf.matmul(X,w_h))
 	output = tf.matmul(h, w_out)
-	return output
+	return output, h
 
 #feed forward through the model
-output = model(X, w_h, w_out)
+output, h = model(X, w_h, w_out)
 
 #loss function
 cost = tf.reduce_mean(tf.square(output - X))
@@ -47,8 +47,10 @@ with tf.Session() as sess:
 	cost = sess.run(cost, feed_dict = {X: batch_xs})
 	print "Final mean squared difference between test data and encoded -> decoded data: " + str(cost)
 	out = sess.run(output, feed_dict = {X: batch_xs})
-	for i in range(10):
+	for i in range(3):
 		plt.imshow(batch_xs[i].reshape(28,28))
 		plt.show()
 		plt.imshow(out[i].reshape(28,28))
 		plt.show()
+	h = sess.run(h, feed_dict = {X: batch_xs}) #your hidden nodes
+	#print h
