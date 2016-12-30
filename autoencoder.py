@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 num_epochs = 1000
 batch_size = 300
+num_hidden_nodes = 256
 
 #input data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
@@ -14,8 +15,8 @@ X_test, y_test = mnist.test.next_batch(100)
 
 #define variables used in the graph
 X = tf.placeholder(tf.float32, [None, 784])
-w_h = tf.Variable(tf.random_normal([784,512], stddev=0.01))
-w_out = tf.Variable(tf.random_normal([512,784], stddev=0.01))
+w_h = tf.Variable(tf.random_normal([784,num_hidden_nodes], stddev=0.01))
+w_out = tf.Variable(tf.random_normal([num_hidden_nodes,784], stddev=0.01))
 
 #build the graph
 def model(X,w_h,w_out):
