@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.examples.tutorials.mnist import input_data
 from tensorflow.examples.tutorials import mnist
+import matplotlib.pyplot as plt
 
 num_epochs = 1000
 batch_size = 300
@@ -44,3 +45,9 @@ with tf.Session() as sess:
 	batch_xs, batch_ys = mnist.test.next_batch(batch_size)
 	cost = sess.run(cost, feed_dict = {X: batch_xs})
 	print "Final mean squared difference between test data and encoded -> decoded data: " + str(cost)
+	out = sess.run(output, feed_dict = {X: batch_xs})
+	for i in range(10):
+		plt.imshow(batch_xs[i].reshape(28,28))
+		plt.show()
+		plt.imshow(out[i].reshape(28,28))
+		plt.show()
