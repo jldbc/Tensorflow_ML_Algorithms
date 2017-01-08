@@ -41,6 +41,7 @@ def format_data(x, maxlen=80, step=3):
 	print("shape: ", X.shape)
 	return X, y, char_to_num, num_to_char, len_chars
 
+
 def neural_network_model(x,num_characters):
     layer = {'weights':tf.Variable(tf.random_normal([rnn_size, num_characters])),
                       'biases':tf.Variable(tf.random_normal([num_characters]))}
@@ -58,10 +59,6 @@ def create_batches(X, batch_size):
 	batch_indexes = [j*batch_size for j in range(num_batches+1) ]
 	return batch_indexes
 
-def next_batch(self):
-    x, y = self.x_batches[self.pointer], self.y_batches[self.pointer]
-    self.pointer += 1
-    return x, y
 
 X, y_mat, char_to_num, num_to_char, num_characters = format_data(text, sequence_length, step=3)
 x = tf.placeholder('float', [None, sequence_length, num_characters])
